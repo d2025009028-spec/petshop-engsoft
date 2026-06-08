@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+{% block title %}{{ funcionario.nome }} - PawControl{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card p-4">
+            <h3>🏷️ {{ funcionario.nome }}</h3>
+            <hr>
+            <p><strong>CPF:</strong> {{ funcionario.cpf }}</p>
+            <p><strong>Cargo:</strong> {{ funcionario.cargo }}</p>
+            <p><strong>Telefone:</strong> {{ funcionario.telefone }}</p>
+            <p><strong>E-mail:</strong> {{ funcionario.email|default:"Não informado" }}</p>
+            <p><strong>Salário:</strong> R$ {{ funcionario.salario }}</p>
+            <div class="d-flex gap-2 mt-3">
+                <a href="{% url 'funcionario_alterar' funcionario.pk %}" class="btn btn-warning">Alterar</a>
+                <a href="{% url 'funcionario_remover' funcionario.pk %}" class="btn btn-danger">Remover</a>
+                <a href="{% url 'funcionario_listar' %}" class="btn btn-secondary">Voltar</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

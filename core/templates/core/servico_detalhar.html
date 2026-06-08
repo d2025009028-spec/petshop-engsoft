@@ -1,0 +1,20 @@
+{% extends "core/base.html" %}
+{% block title %}{{ servico.nome }} - PawControl{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card p-4">
+            <h3>✂️ {{ servico.nome }}</h3>
+            <hr>
+            <p><strong>Descrição:</strong> {{ servico.descricao|default:"Não informada" }}</p>
+            <p><strong>Preço:</strong> R$ {{ servico.preco }}</p>
+            <p><strong>Duração Estimada:</strong> {{ servico.duracao_estimada }} minutos</p>
+            <div class="d-flex gap-2 mt-3">
+                <a href="{% url 'servico_alterar' servico.pk %}" class="btn btn-warning">Alterar</a>
+                <a href="{% url 'servico_remover' servico.pk %}" class="btn btn-danger">Remover</a>
+                <a href="{% url 'servico_listar' %}" class="btn btn-secondary">Voltar</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

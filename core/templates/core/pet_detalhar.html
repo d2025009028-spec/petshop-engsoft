@@ -1,0 +1,23 @@
+{% extends "core/base.html" %}
+{% block title %}{{ pet.nome }} - PawControl{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card p-4">
+            <h3>🐕 {{ pet.nome }}</h3>
+            <hr>
+            <p><strong>Espécie:</strong> {{ pet.especie }}</p>
+            <p><strong>Raça:</strong> {{ pet.raca|default:"Não informada" }}</p>
+            <p><strong>Data de Nascimento:</strong> {% if pet.data_nascimento %}{{ pet.data_nascimento|date:"d/m/Y" }}{% else %}Não informada{% endif %}</p>
+            <p><strong>Peso:</strong> {% if pet.peso %}{{ pet.peso }} kg{% else %}Não informado{% endif %}</p>
+            <p><strong>Observações:</strong> {{ pet.observacoes|default:"Nenhuma" }}</p>
+            <p><strong>Cliente:</strong> <a href="{% url 'cliente_detalhar' pet.cliente.pk %}">{{ pet.cliente.nome }}</a></p>
+            <div class="d-flex gap-2 mt-3">
+                <a href="{% url 'pet_alterar' pet.pk %}" class="btn btn-warning">Alterar</a>
+                <a href="{% url 'pet_remover' pet.pk %}" class="btn btn-danger">Remover</a>
+                <a href="{% url 'pet_listar' %}" class="btn btn-secondary">Voltar</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
