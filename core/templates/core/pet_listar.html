@@ -1,48 +1,13 @@
 {% extends "core/base.html" %}
 {% block title %}Pets - PawControl{% endblock %}
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h3>🐕 Pets</h3>
-    <a href="{% url 'pet_inserir' %}" class="btn btn-primary">+ Novo Pet</a>
-</div>
-<div class="card p-3 mb-3">
-    <form method="get" class="row g-2 align-items-end">
-        <div class="col-md-4">
-            <label class="form-label">Nome do Pet</label>
-            <input type="text" name="nome_pet" value="{{ nome_pet }}" class="form-control" placeholder="Filtrar por nome do pet">
-        </div>
-        <div class="col-md-4">
-            <label class="form-label">Nome do Cliente</label>
-            <input type="text" name="nome_cliente" value="{{ nome_cliente }}" class="form-control" placeholder="Filtrar por cliente">
-        </div>
-        <div class="col-md-4">
-            <button type="submit" class="btn btn-primary">Filtrar</button>
-            <a href="{% url 'pet_listar' %}" class="btn btn-outline-secondary">Limpar</a>
-        </div>
-    </form>
-</div>
-<div class="card">
-    <div class="table-responsive">
-        <table class="table table-hover mb-0">
-            <thead>
-                <tr><th>Nome</th><th>Espécie</th><th>Raça</th><th>Peso</th><th>Cliente</th><th>Ações</th></tr>
-            </thead>
-            <tbody>
-                {% for p in pets %}
-                <tr ondblclick="window.location='{% url 'pet_detalhar' p.pk %}'" style="cursor:pointer">
-                    <td>{{ p.nome }}</td><td>{{ p.especie }}</td><td>{{ p.raca|default:"-" }}</td>
-                    <td>{% if p.peso %}{{ p.peso }} kg{% else %}-{% endif %}</td>
-                    <td>{{ p.cliente.nome }}</td>
-                    <td>
-                        <a href="{% url 'pet_alterar' p.pk %}" class="btn btn-sm btn-warning">Alterar</a>
-                        <a href="{% url 'pet_remover' p.pk %}" class="btn btn-sm btn-danger">Remover</a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr><td colspan="6" class="text-center text-muted">Nenhum pet encontrado.</td></tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
+<div class="d-flex justify-content-between align-items-center mb-3"><h3>🐕 Pets</h3><a href="{% url 'pet_inserir' %}" class="btn btn-primary">+ Novo Pet</a></div>
+<div class="card p-3 mb-3"><form method="get" class="row g-2 align-items-end">
+    <div class="col-md-4"><label class="form-label">Nome do Pet</label><input type="text" name="nome_pet" value="{{ nome_pet }}" class="form-control" placeholder="Filtrar por nome do pet"></div>
+    <div class="col-md-4"><label class="form-label">Nome do Cliente</label><input type="text" name="nome_cliente" value="{{ nome_cliente }}" class="form-control" placeholder="Filtrar por cliente"></div>
+    <div class="col-md-4"><button type="submit" class="btn btn-primary">Filtrar</button> <a href="{% url 'pet_listar' %}" class="btn btn-outline-secondary">Limpar</a></div>
+</form></div>
+<div class="card"><div class="table-responsive"><table class="table table-hover mb-0"><thead><tr><th>Nome</th><th>Espécie</th><th>Porte</th><th>Raça</th><th>Idade</th><th>Peso</th><th>Cliente</th><th>Ações</th></tr></thead><tbody>
+{% for p in pets %}<tr ondblclick="window.location='{% url 'pet_detalhar' p.pk %}'" style="cursor:pointer"><td>{{ p.nome }}</td><td>{{ p.especie }}</td><td>{% if p.porte == "Pequeno" %}<span class="badge bg-info">{{ p.porte }}</span>{% elif p.porte == "Médio" %}<span class="badge bg-warning text-dark">{{ p.porte }}</span>{% else %}<span class="badge bg-success">{{ p.porte }}</span>{% endif %}</td><td>{{ p.raca|default:"-" }}</td><td>{% if p.idade != None %}{{ p.idade }} ano{{ p.idade|pluralize }}{% else %}-{% endif %}</td><td>{% if p.peso %}{{ p.peso }} kg{% else %}-{% endif %}</td><td>{{ p.cliente.nome }}</td><td><a href="{% url 'pet_alterar' p.pk %}" class="btn btn-sm btn-warning">Alterar</a> <a href="{% url 'pet_remover' p.pk %}" class="btn btn-sm btn-danger">Remover</a></td></tr>{% empty %}<tr><td colspan="8" class="text-center text-muted">Nenhum pet encontrado.</td></tr>{% endfor %}
+</tbody></table></div></div>
 {% endblock %}

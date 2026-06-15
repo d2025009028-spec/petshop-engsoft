@@ -1,0 +1,28 @@
+{% extends "core/base.html" %}
+{% block title %}Agendamentos - PawControl{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>📅 Agendamentos</h3>
+    <a href="{% url 'agendamento_inserir' %}" class="btn btn-primary">+ Novo Agendamento</a>
+</div>
+<div class="card p-3 mb-3">
+    <form method="get" class="row g-2 align-items-end">
+        <div class="col-md-2"><label class="form-label">Data</label><input type="date" name="data" value="{{ data }}" class="form-control"></div>
+        <div class="col-md-2"><label class="form-label">Pet</label><input type="text" name="nome_pet" value="{{ nome_pet }}" class="form-control" placeholder="Nome do pet"></div>
+        <div class="col-md-2"><label class="form-label">Cliente</label><input type="text" name="nome_cliente" value="{{ nome_cliente }}" class="form-control" placeholder="Nome do cliente"></div>
+        <div class="col-md-2"><label class="form-label">Funcionário</label><select name="funcionario" class="form-control"><option value="">Todos</option>{% for f in funcionarios %}<option value="{{ f.pk }}" {% if funcionario_id == f.pk|stringformat:"d" %}selected{% endif %}>{{ f.nome }}</option>{% endfor %}</select></div>
+        <div class="col-md-2"><label class="form-label">Status</label><select name="status" class="form-control"><option value="">Todos</option><option value="Agendado" {% if status == "Agendado" %}selected{% endif %}>Agendado</option><option value="Realizado" {% if status == "Realizado" %}selected{% endif %}>Realizado</option><option value="Cancelado" {% if status == "Cancelado" %}selected{% endif %}>Cancelado</option></select></div>
+        <div class="col-md-2"><button type="submit" class="btn btn-primary">Filtrar</button> <a href="{% url 'agendamento_listar' %}" class="btn btn-outline-secondary">Limpar</a></div>
+    </form>
+</div>
+<div class="card"><div class="table-responsive"><table class="table table-hover mb-0"><thead><tr><th>Data</th><th>Hora</th><th>Pet</th><th>Cliente</th><th>Serviço</th><th>Funcionário</th><th>Status</th><th>Valor</th><th>Ações</th></tr></thead><tbody>
+{% for a in agendamentos %}
+<tr ondblclick="window.location='{% url 'agendamento_detalhar' a.pk %}'" style="cursor:pointer">
+    <td>{{ a.data|date:"d/m/Y" }}</td><td>{{ a.hora|time:"H:i" }}</td><td>{{ a.pet.nome }}</td><td>{{ a.pet.cliente.nome }}</td><td>{{ a.servico.nome }}</td><td>{{ a.funcionario.nome }}</td>
+    <td>{% if a.status == "Agendado" %}<span class="badge bg-primary">{{ a.status }}</span>{% elif a.status == "Realizado" %}<span class="badge bg-success">{{ a.status }}</span>{% else %}<span class="badge bg-danger">{{ a.status }}</span>{% endif %}</td>
+    <td>{{ a.valor_formatado }}</td>
+    <td><a href="{% url 'agendamento_alterar' a.pk %}" class="btn btn-sm btn-warning">Alterar</a> <a href="{% url 'agendamento_remover' a.pk %}" class="btn btn-sm btn-danger">Remover</a></td>
+</tr>
+{% empty %}<tr><td colspan="9" class="text-center text-muted">Nenhum agendamento encontrado.</td></tr>{% endfor %}
+</tbody></table></div></div>
+{% endblock %}

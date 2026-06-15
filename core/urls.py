@@ -31,4 +31,22 @@ urlpatterns = [
     path('servicos/<int:pk>/alterar/', views.servico_alterar, name='servico_alterar'),
     path('servicos/<int:pk>/remover/', views.servico_remover, name='servico_remover'),
     path('servicos/<int:pk>/', views.servico_detalhar, name='servico_detalhar'),
+
+    # Agendamento
+    path('agendamentos/', views.agendamento_listar, name='agendamento_listar'),
+    path('agendamentos/inserir/', views.agendamento_inserir, name='agendamento_inserir'),
+    path('agendamentos/<int:pk>/alterar/', views.agendamento_alterar, name='agendamento_alterar'),
+    path('agendamentos/<int:pk>/remover/', views.agendamento_remover, name='agendamento_remover'),
+    path('agendamentos/<int:pk>/', views.agendamento_detalhar, name='agendamento_detalhar'),
+
+    # Produto
+    path('produtos/', views.produto_listar, name='produto_listar'),
+    path('produtos/inserir/', views.produto_inserir, name='produto_inserir'),
+    path('produtos/<int:pk>/alterar/', views.produto_alterar, name='produto_alterar'),
+    path('produtos/<int:pk>/remover/', views.produto_remover, name='produto_remover'),
+    path('produtos/<int:pk>/', views.produto_detalhar, name='produto_detalhar'),
+
+    # Relatórios
+    path('relatorios/servicos/', views.relatorio_servicos_periodo, name='relatorio_servicos'),
+    path('relatorios/faturamento/', views.relatorio_faturamento_mensal, name='relatorio_faturamento'),
 ]

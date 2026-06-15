@@ -1,20 +1,9 @@
 {% extends "core/base.html" %}
 {% block title %}{{ servico.nome }} - PawControl{% endblock %}
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card p-4">
-            <h3>✂️ {{ servico.nome }}</h3>
-            <hr>
-            <p><strong>Descrição:</strong> {{ servico.descricao|default:"Não informada" }}</p>
-            <p><strong>Preço:</strong> R$ {{ servico.preco }}</p>
-            <p><strong>Duração Estimada:</strong> {{ servico.duracao_estimada }} minutos</p>
-            <div class="d-flex gap-2 mt-3">
-                <a href="{% url 'servico_alterar' servico.pk %}" class="btn btn-warning">Alterar</a>
-                <a href="{% url 'servico_remover' servico.pk %}" class="btn btn-danger">Remover</a>
-                <a href="{% url 'servico_listar' %}" class="btn btn-secondary">Voltar</a>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="row justify-content-center"><div class="col-md-8"><div class="card p-4">
+    <div class="d-flex justify-content-between align-items-center"><h3>✂️ {{ servico.nome }}</h3>{% if servico.categoria == "Estética" %}<span class="badge bg-primary fs-6">{{ servico.categoria }}</span>{% elif servico.categoria == "Saúde" %}<span class="badge bg-danger fs-6">{{ servico.categoria }}</span>{% elif servico.categoria == "Hospedagem" %}<span class="badge bg-success fs-6">{{ servico.categoria }}</span>{% else %}<span class="badge bg-secondary fs-6">{{ servico.categoria }}</span>{% endif %}</div><hr>
+    <p><strong>Descrição:</strong> {{ servico.descricao|default:"Não informada" }}</p><p><strong>Preço:</strong> {{ servico.preco_formatado }}</p><p><strong>Duração Estimada:</strong> {{ servico.duracao_formatada }}</p>
+    <div class="d-flex gap-2 mt-3"><a href="{% url 'servico_alterar' servico.pk %}" class="btn btn-warning">Alterar</a><a href="{% url 'servico_remover' servico.pk %}" class="btn btn-danger">Remover</a><a href="{% url 'servico_listar' %}" class="btn btn-secondary">Voltar</a></div>
+</div></div></div>
 {% endblock %}

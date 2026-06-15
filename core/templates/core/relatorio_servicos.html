@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+{% block title %}Relatório de Serviços - PawControl{% endblock %}
+{% block content %}
+<h3>📊 Relatório de Serviços Realizados por Período</h3>
+<div class="card p-3 mb-3">
+    <form method="get" class="row g-2 align-items-end">
+        <div class="col-md-2"><label class="form-label">Data Início *</label><input type="date" name="data_inicio" value="{{ data_inicio }}" class="form-control" required></div>
+        <div class="col-md-2"><label class="form-label">Data Fim *</label><input type="date" name="data_fim" value="{{ data_fim }}" class="form-control" required></div>
+        <div class="col-md-3"><label class="form-label">Funcionário</label><select name="funcionario" class="form-control"><option value="">Todos</option>{% for f in funcionarios %}<option value="{{ f.pk }}" {% if funcionario_id == f.pk|stringformat:"d" %}selected{% endif %}>{{ f.nome }}</option>{% endfor %}</select></div>
+        <div class="col-md-3"><label class="form-label">Serviço</label><select name="servico" class="form-control"><option value="">Todos</option>{% for s in servicos %}<option value="{{ s.pk }}" {% if servico_id == s.pk|stringformat:"d" %}selected{% endif %}>{{ s.nome }}</option>{% endfor %}</select></div>
+        <div class="col-md-2"><button type="submit" class="btn btn-primary">Gerar</button></div>
+    </form>
+</div>
+{% if agendamentos is not None %}
+<div class="card"><div class="table-responsive"><table class="table table-hover mb-0"><thead><tr><th>Data</th><th>Pet</th><th>Cliente</th><th>Serviço</th><th>Funcionário</th><th>Valor</th></tr></thead><tbody>
+{% for a in agendamentos %}
+<tr><td>{{ a.data|date:"d/m/Y" }}</td><td>{{ a.pet.nome }}</td><td>{{ a.pet.cliente.nome }}</td><td>{{ a.servico.nome }}</td><td>{{ a.funcionario.nome }}</td><td>{{ a.valor_formatado }}</td></tr>
+{% empty %}<tr><td colspan="6" class="text-center text-muted">Nenhum serviço realizado no período.</td></tr>{% endfor %}
+</tbody></table></div></div>
+<div class="card p-3 mt-3">
+    <div class="row text-center">
+        <div class="col-md-6"><strong>Total de Serviços:</strong> {{ total_servicos }}</div>
+        <div class="col-md-6"><strong>Valor Total:</strong> R$ {{ valor_total|floatformat:2 }}</div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

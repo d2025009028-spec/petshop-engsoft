@@ -1,21 +1,9 @@
 {% extends "core/base.html" %}
 {% block title %}Remover {{ tipo }} - PawControl{% endblock %}
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card p-4 text-center">
-            <h3 class="text-danger">Confirmar Remoção</h3>
-            <hr>
-            <p>Tem certeza que deseja remover o {{ tipo }}:</p>
-            <p class="fw-bold fs-5">{{ objeto }}</p>
-            <form method="post">
-                {% csrf_token %}
-                <div class="d-flex gap-2 justify-content-center mt-3">
-                    <button type="submit" class="btn btn-danger">Sim, Remover</button>
-                    <a href="{% url voltar_url %}" class="btn btn-secondary">Cancelar</a>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<div class="row justify-content-center"><div class="col-md-6"><div class="card p-4 text-center">
+    <h3 class="text-danger">Confirmar Remoção</h3><hr>
+    <p>Tem certeza que deseja remover o {{ tipo }}:</p><p class="fw-bold fs-5">{{ objeto }}</p>
+    <form method="post">{% csrf_token %}<div class="d-flex gap-2 justify-content-center mt-3"><button type="submit" class="btn btn-danger">Sim, Remover</button><a href="{% url voltar_url %}" class="btn btn-secondary">Cancelar</a></div></form>
+</div></div></div>
 {% endblock %}

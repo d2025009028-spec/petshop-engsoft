@@ -1,29 +1,10 @@
 {% extends "core/base.html" %}
 {% block title %}{{ cliente.nome }} - PawControl{% endblock %}
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card p-4">
-            <h3>👤 {{ cliente.nome }}</h3>
-            <hr>
-            <p><strong>CPF:</strong> {{ cliente.cpf }}</p>
-            <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
-            <p><strong>E-mail:</strong> {{ cliente.email|default:"Não informado" }}</p>
-            <p><strong>Endereço:</strong> {{ cliente.endereco|default:"Não informado" }}</p>
-            {% if cliente.pets.all %}
-            <h5 class="mt-3">Pets:</h5>
-            <ul>
-                {% for pet in cliente.pets.all %}
-                <li><a href="{% url 'pet_detalhar' pet.pk %}">{{ pet.nome }} ({{ pet.especie }})</a></li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            <div class="d-flex gap-2 mt-3">
-                <a href="{% url 'cliente_alterar' cliente.pk %}" class="btn btn-warning">Alterar</a>
-                <a href="{% url 'cliente_remover' cliente.pk %}" class="btn btn-danger">Remover</a>
-                <a href="{% url 'cliente_listar' %}" class="btn btn-secondary">Voltar</a>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="row justify-content-center"><div class="col-md-8"><div class="card p-4">
+    <h3>👤 {{ cliente.nome }}</h3><hr>
+    <p><strong>CPF:</strong> {{ cliente.cpf }}</p><p><strong>Telefone:</strong> {{ cliente.telefone }}</p><p><strong>E-mail:</strong> {{ cliente.email|default:"Não informado" }}</p><p><strong>Endereço:</strong> {{ cliente.endereco|default:"Não informado" }}</p>
+    {% if cliente.pets.all %}<h5 class="mt-3">Pets:</h5><ul>{% for pet in cliente.pets.all %}<li><a href="{% url 'pet_detalhar' pet.pk %}">{{ pet.nome }} ({{ pet.especie }})</a></li>{% endfor %}</ul>{% endif %}
+    <div class="d-flex gap-2 mt-3"><a href="{% url 'cliente_alterar' cliente.pk %}" class="btn btn-warning">Alterar</a><a href="{% url 'cliente_remover' cliente.pk %}" class="btn btn-danger">Remover</a><a href="{% url 'cliente_listar' %}" class="btn btn-secondary">Voltar</a></div>
+</div></div></div>
 {% endblock %}

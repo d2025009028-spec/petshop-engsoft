@@ -1,0 +1,16 @@
+{% extends "core/base.html" %}
+{% block title %}{{ produto.nome }} - PawControl{% endblock %}
+{% block content %}
+<div class="row justify-content-center"><div class="col-md-8"><div class="card p-4">
+    <h3>📦 {{ produto.nome }}</h3><hr>
+    <p><strong>Categoria:</strong> <span class="badge bg-secondary">{{ produto.categoria }}</span></p>
+    <p><strong>Descrição:</strong> {{ produto.descricao|default:"Não informada" }}</p>
+    <p><strong>Preço:</strong> {{ produto.preco_formatado }}</p>
+    <p><strong>Quantidade em Estoque:</strong> {% if produto.estoque_baixo %}<span class="text-danger fw-bold">{{ produto.quantidade_estoque }} un. (Estoque baixo!)</span>{% else %}{{ produto.quantidade_estoque }} un.{% endif %}</p>
+    <div class="d-flex gap-2 mt-3">
+        <a href="{% url 'produto_alterar' produto.pk %}" class="btn btn-warning">Alterar</a>
+        <a href="{% url 'produto_remover' produto.pk %}" class="btn btn-danger">Remover</a>
+        <a href="{% url 'produto_listar' %}" class="btn btn-secondary">Voltar</a>
+    </div>
+</div></div></div>
+{% endblock %}
